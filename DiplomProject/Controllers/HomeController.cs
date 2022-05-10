@@ -21,7 +21,7 @@ public class HomeController : Controller
         var streets = this.context.streets.Include(s => s.areas).Select(s => new StreetsViewModel
         {
             name = s.name,
-            numberOfHouses = s.numberOfHouses,
+            numbersOfHouses = s.numbersOfHouses,
             typesOfHouses = s.typeOfHouses,
             areas = string.Join(',', s.areas.Select(a => a.parkingPlaces))
         });

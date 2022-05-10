@@ -7,7 +7,7 @@ namespace DiplomProject.Data
 	{
 		public long id { get; set; }
 		public string name { get; set; }
-		public int numberOfHouses { get; set; }
+		public int numbersOfHouses { get; set; }
 		public string typeOfHouses { get; set; }
 		public List<Area> areas { get; set; }
 	}
