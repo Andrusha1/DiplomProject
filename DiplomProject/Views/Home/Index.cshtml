@@ -1,9 +1,12 @@
-﻿@{
+﻿@model IEnumerable<DiplomProject.ViewModels.StreetsViewModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome Andrey</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
+@foreach (var street in Model) {
+    <h1>Street name: @street.name</h1>
+    <p>Number of houses on current street: @street.numberOfHouses</p>
+    <p>Primary types of houses: @street.typesOfHouses</p>
+    <p>Parking places: @street.areas</p>
+    }

@@ -1,21 +1,31 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DiplomProject.Models;
+using DiplomProject.Data;
+using Microsoft.EntityFrameworkCore;
+using DiplomProject.ViewModels;
 
 namespace DiplomProject.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly DatabaseContext context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(DatabaseContext context)
     {
-        _logger = logger;
+        this.context = context;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var streets = this.context.streets.Include(s => s.areas).Select(s => new StreetsViewModel
+        {
+            name = s.name,
+            numberOfHouses = s.numberOfHouses,
+            typesOfHouses = s.typeOfHouses,
+            areas = string.Join(',', s.areas.Select(a => a.parkingPlaces))
+        });
+        return View(streets);
     }
 
     public IActionResult Privacy()
