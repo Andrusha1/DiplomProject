@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Добавить улицу";
+}
+
+<h2>Добавить новую улицу</h2>
+
+
+<form action="AddStreet" method="post">
+    <label>Название улицы</label>
+    <br />
+    <input type="text" name="name" />
+    <br />
+
+    <label>Количество домов</label>
+    <br />
+    <input type="number" name="numberOfHouses" />
+    <p></p>
+
+    <label>Тип домов</label>
+    <br />
+    <select id="TypeOfHouses" name="typeOfHouses">
+        <option value="">Выберите тип домов</option>
+        <option>Хрущевки</option>
+        <option>Сталинки</option>
+        <option>Высотки</option>
+        <option>Частный сектор</option>
+    </select>
+    <br />
+
+    <h2>Информация о стоянке</h2>
+
+    <label>Стоимость аренды одного парковочного места</label>
+    <br />
+    <input type="number" name="placesAmount" />
+    <br />
+    <label>Стоимость аренды стоянки</label>
+    <br />
+    <input type="number" name="rentPrice" />
+    <br />
+    <label>Количество парковочных мест</label>
+    <br />
+    <input type="number" name="parkingPlaces" />
+    <br />
+
+
+    <button name="saveAndReturn" asp-controller="AddStreetButton" asp-action="AddStreet"  >Добавить адрес</button>
+    <button name="Return" asp-controller="Home" asp-action="Index">Отменить</button>
+</form>
+<p></p>
+
