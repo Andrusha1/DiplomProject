@@ -5,28 +5,66 @@
 <h2>Добавить новую улицу</h2>
 
 
-<form action="AddStreet" method="post">
-    <label>Название улицы</label>
-    <br />
-    <input type="text" name="name" />
+
+
+
+<script>
+    function ShowCreate()
+    {
+        var checkbox = document.getElementById('isCreated');
+        if(checkbox.checked == false)
+        {
+            document.getElementById('AddingStreet').style ="display:block";
+            document.getElementById('StreetDropList').style ="display:none";
+        }
+        else
+        {
+            document.getElementById('AddingStreet').style = "display:none";
+            document.getElementById('StreetDropList').style = "display:block";
+        }
+    }
+</script>
+
+
+
+
+
+
+<form id="AddingArea" action="AddArea" method="post">
+    <label>Добавить только участок</label>
+    <input name="isCreated" id="isCreated" type="checkbox" onclick="ShowCreate()">
     <br />
 
-    <label>Количество домов</label>
-    <br />
-    <input type="number" name="numberOfHouses" />
-    <p></p>
-
-    <label>Тип домов</label>
-    <br />
-    <select id="TypeOfHouses" name="typeOfHouses">
-        <option value="">Выберите тип домов</option>
-        <option>Хрущевки</option>
-        <option>Сталинки</option>
-        <option>Высотки</option>
-        <option>Частный сектор</option>
+    <select id="StreetDropList" name="SelectStreet" style="display:none">
+        <option value="null">Выберите улицу</option>
+        <option>Партизанская</option>
     </select>
-    <br />
 
+    <br />
+    <ng-form id="AddingStreet" action="AddStreet" style="display:block" method="post">
+        <label>Название улицы</label>
+        <br />
+        <input type="text" name="name" />
+        <br />
+
+        <label>Количество домов</label>
+        <br />
+        <input type="number" name="numberOfHouses" />
+        <p></p>
+
+        <label>Тип домов</label>
+        <br />
+        <select id="TypeOfHouses" name="typeOfHouses">
+            <option value="null">Выберите тип домов</option>
+            <option>Хрущевки</option>
+            <option>Сталинки</option>
+            <option>Высотки</option>
+            <option>Частный сектор</option>
+        </select>
+        <br />
+
+    </ng-form>
+    <br />
     <h2>Информация о стоянке</h2>
 
     <label>Стоимость аренды одного парковочного места</label>
@@ -40,11 +78,10 @@
     <label>Количество парковочных мест</label>
     <br />
     <input type="number" name="parkingPlaces" />
-    <br />
+    <p></p>
 
 
-    <button name="saveAndReturn" asp-controller="AddStreetButton" asp-action="AddStreet"  >Добавить адрес</button>
+    <button name="saveAndReturn" asp-controller="AddStreetButton" asp-action="AddStreet">Добавить адрес</button>
     <button name="Return" asp-controller="Home" asp-action="Index">Отменить</button>
 </form>
 <p></p>
-

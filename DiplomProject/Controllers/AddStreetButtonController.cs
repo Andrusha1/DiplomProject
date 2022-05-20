@@ -17,20 +17,34 @@ namespace DiplomProject.Controllers
             return View();
         }
 
-        public IActionResult AddStreet(string name, int numberOfHouses, string typeOfHouses, int placesAmount, int rentPrice, int parkingPlaces)
+        public void AddStreet(string name, int numberOfHouses, string typeOfHouses, int placesAmount, int rentPrice, int parkingPlaces)
         {
-            context.streets.Add(new Street
+            if (name == null)
             {
-                name = name,
-                numbersOfHouses = numberOfHouses,
-                typeOfHouses = typeOfHouses,
-                areas = new List<Area>
+                //Selected Street in droplist
+                context.areas.Add(new Area
                 {
-                     new Area{parkingPlaces = parkingPlaces, rentPrice = rentPrice, placesAmount = placesAmount},
-                }
-            });
-            
-            return View();
+                    parkingPlaces = parkingPlaces,
+                    rentPrice = rentPrice,
+                    placesAmount = placesAmount,
+                });
+            }
+            else
+            {
+                context.streets.Add(new Street
+                {
+                    name = name,
+                    numbersOfHouses = numberOfHouses,
+                    typeOfHouses = typeOfHouses,
+                });
+                context.areas.Add(new Area
+                {
+                    parkingPlaces = parkingPlaces,
+                    rentPrice = rentPrice,
+                    placesAmount = placesAmount,
+                });
+            }
+            context.SaveChanges();
         }
     }
 }
