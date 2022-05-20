@@ -35,10 +35,7 @@
     <input name="isCreated" id="isCreated" type="checkbox" onclick="ShowCreate()">
     <br />
 
-    <select id="StreetDropList" name="SelectStreet" style="display:none">
-        <option value="null">Выберите улицу</option>
-        <option>Партизанская</option>
-    </select>
+    <select id="StreetDropList" asp-items="ViewBag.Street" style="display:none"></select> @*DropList from db*@
 
     <br />
     <ng-form id="AddingStreet" action="AddStreet" style="display:block" method="post">

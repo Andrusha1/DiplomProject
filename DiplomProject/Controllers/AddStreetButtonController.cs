@@ -1,6 +1,7 @@
 ﻿using DiplomProject.Data;
 using DiplomProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace DiplomProject.Controllers
@@ -12,9 +13,21 @@ namespace DiplomProject.Controllers
         {
             this.context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index() 
         {
+            var x = DropList(); //DropList from db
+            ViewBag.Street = new SelectList(x); //DropList from db
             return View();
+        }
+
+        public IEnumerable<string> DropList() //DropList from db \/
+        {
+            IEnumerable<string> streets = new List<string>();
+            foreach (var a in context.streets)
+            {
+                streets.Append(a.name);
+            };
+            return streets; //DropList from db /\
         }
 
         public void AddStreet(string name, int numberOfHouses, string typeOfHouses, int placesAmount, int rentPrice, int parkingPlaces)
