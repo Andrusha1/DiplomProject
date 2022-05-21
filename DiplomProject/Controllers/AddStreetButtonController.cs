@@ -20,23 +20,24 @@ namespace DiplomProject.Controllers
             return View();
         }
 
-        public IEnumerable<string> DropList() //DropList from db \/
+        public List<string> DropList() //DropList from db \/
         {
-            IEnumerable<string> streets = new List<string>();
+            List<string> streets = new List<string>();
             foreach (var a in context.streets)
             {
-                streets.Append(a.name);
+                streets.Add(a.name);
             };
             return streets; //DropList from db /\
         }
 
-        public void AddStreet(string name, int numberOfHouses, string typeOfHouses, int placesAmount, int rentPrice, int parkingPlaces)
+        public void AddStreet(string StreetDropList, string name, int numberOfHouses, string typeOfHouses, int placesAmount, int rentPrice, int parkingPlaces)
         {
             if (name == null)
             {
-                //Selected Street in droplist
+                name = StreetDropList;
                 context.areas.Add(new Area
                 {
+                    id = context.streets.Where(s => s.name == StreetDropList).Select(a => a.id), //id = id у выбранной улицы
                     parkingPlaces = parkingPlaces,
                     rentPrice = rentPrice,
                     placesAmount = placesAmount,
@@ -44,14 +45,15 @@ namespace DiplomProject.Controllers
             }
             else
             {
-                context.streets.Add(new Street
+                context.streets.Add(new Street //вот тут
                 {
-                    name = name,
+                    name = name, 
                     numbersOfHouses = numberOfHouses,
                     typeOfHouses = typeOfHouses,
                 });
                 context.areas.Add(new Area
                 {
+                    id = context.streets.Where(s => s.name).Select(a => a.id), //id = id созданной улице вон там сверху
                     parkingPlaces = parkingPlaces,
                     rentPrice = rentPrice,
                     placesAmount = placesAmount,
