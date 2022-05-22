@@ -17,6 +17,7 @@ namespace DiplomProject.Data
 		public int placesAmount { get; set; } //Стоимость аренды одного парковочного места
 		public int rentPrice { get; set; }
 		public int parkingPlaces { get; set; } //Количество парковочных мест
+		public long Streetid { get; set; }
 	}
 }
 

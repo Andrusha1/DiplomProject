@@ -35,7 +35,7 @@
     <input name="isCreated" id="isCreated" type="checkbox" onclick="ShowCreate()">
     <br />
 
-    <select id="StreetDropList" asp-items="ViewBag.Street" style="display:none"></select> @*DropList from db*@
+    <select id="StreetDropList" name="StreetDropList" asp-items="ViewBag.Street" style="display:none"></select> @*DropList from db*@
 
     <br />
     <ng-form id="AddingStreet" action="AddStreet" style="display:block" method="post">

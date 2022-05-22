@@ -35,13 +35,16 @@ namespace DiplomProject.Controllers
             if (name == null)
             {
                 name = StreetDropList;
+                var idDb = context.streets.Where(c => c.name == StreetDropList).Select(a => a.id);
+
                 context.areas.Add(new Area
                 {
-                    id = context.streets.Where(s => s.name == StreetDropList).Select(a => a.id), //id = id у выбранной улицы
+                    Streetid =  idDb.First(),
                     parkingPlaces = parkingPlaces,
                     rentPrice = rentPrice,
                     placesAmount = placesAmount,
                 });
+                context.SaveChanges();
             }
             else
             {
@@ -51,15 +54,21 @@ namespace DiplomProject.Controllers
                     numbersOfHouses = numberOfHouses,
                     typeOfHouses = typeOfHouses,
                 });
+                context.SaveChanges();
+
+                var idCreated = context.streets.Where(c => c.name == name).Select(a => a.id);
+
                 context.areas.Add(new Area
                 {
-                    id = context.streets.Where(s => s.name).Select(a => a.id), //id = id созданной улице вон там сверху
+                    Streetid = idCreated.First(), //id = id созданной улице вон там сверху
                     parkingPlaces = parkingPlaces,
                     rentPrice = rentPrice,
                     placesAmount = placesAmount,
                 });
+
+                context.SaveChanges();
             }
-            context.SaveChanges();
+            Index();
         }
     }
 }
