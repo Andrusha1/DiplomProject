@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DiplomProject.ViewModels.StreetsViewModel>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Добавление улицы";
 }
 
 @foreach (var street in Model) {
@@ -12,5 +12,6 @@
     }
 
 <form>
-      <button name="AddStreetButton" asp-controller="AddStreetButton" asp-action="Index">Добавить улицу</button>
+    <button name="AddStreetButton" asp-controller="AddStreetButton" asp-action="Index">Добавить улицу</button>
+    <button name="CalculateButton" asp-controller="Calculate" asp-action="Algorythm">Найти оптимальную стоянку</button>
 </form>

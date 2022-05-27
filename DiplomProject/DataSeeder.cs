@@ -19,19 +19,18 @@ namespace DiplomProject
 			if (street != null) return;
 			context.streets.Add(new Street
 			{
-				id = 1,
-				name = "Партизанская",
-				numbersOfHouses = 246,
-				typeOfHouses = "Хрущевки",
+				id = 0,
+				name = "Пример улицы",
+				numbersOfHouses = 1,
+				typeOfHouses = "Сталинки",
 				areas = new List<Area>
 				 {
-					 new Area{id = 1 ,parkingPlaces = 20, rentPrice = 20000, placesAmount = 1000 },
-					 new Area{id = 2, parkingPlaces = 35, rentPrice = 40000, placesAmount = 1200 }
+					 new Area{id = 0, parkingPlaces = 1, rentPrice = 100000, placesAmount = 10 },
 				 }
 			}) ;
 
 			context.SaveChanges();
-        }
+		}
     }
 }
 

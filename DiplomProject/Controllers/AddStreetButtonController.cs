@@ -39,7 +39,7 @@ namespace DiplomProject.Controllers
 
                 context.areas.Add(new Area
                 {
-                    Streetid =  idDb.First(),
+                    Streetid = idDb.First(),
                     parkingPlaces = parkingPlaces,
                     rentPrice = rentPrice,
                     placesAmount = placesAmount,
@@ -50,7 +50,7 @@ namespace DiplomProject.Controllers
             {
                 context.streets.Add(new Street //вот тут
                 {
-                    name = name, 
+                    name = name,
                     numbersOfHouses = numberOfHouses,
                     typeOfHouses = typeOfHouses,
                 });
@@ -68,7 +68,7 @@ namespace DiplomProject.Controllers
 
                 context.SaveChanges();
             }
-            Index();
+            Response.Redirect("/Home/Index");
         }
     }
 }
