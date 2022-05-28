@@ -24,7 +24,7 @@ namespace DiplomProject.Controllers
         public void Algorythm()
         {
             List<int> targetFunction = new List<int>();
-            
+
             string streetName;
             int numberOfHouses;
             string typeOfHouses;
@@ -32,13 +32,14 @@ namespace DiplomProject.Controllers
             int rentPrice;
             int parkingPlaces;
             long Streetid;
-            double coefType;
+            double coefType; //Коэффицент неликвидности
 
             int amountOfStreets = context.streets.Select(a => a.id).Count() - 1;
 
-            while (targetFunction.Count() != context.streets.Select(a => a.id).Count() - 1)
+            for (int x = 1; x <= context.streets.Select(a => a.id).Count(); x++)
             {
-                for (int i = 2; i < context.streets.Select(a => a.id).Count(); i++)
+
+                for (int i = 2; i <= context.streets.Select(a => a.id).Count(); i++)
                 {
                     streetName = context.streets.Where(a => a.id == i).Select(s => s.name).First(); //Выбираем переменные из таблицы streets
                     numberOfHouses = context.streets.Where(a => a.id == i).Select(s => s.numbersOfHouses).First();
@@ -47,31 +48,31 @@ namespace DiplomProject.Controllers
                     switch (typeOfHouses) //Ловим тип домов
                     {
                         case "Частный сектор":
-                            coefType = 0.5;
+                            coefType = 50;
                             break;
                         case "Сталинки":
-                            coefType = 1;
+                            coefType = 30;
                             break;
                         case "Хрущевки":
-                            coefType = 1.5;
+                            coefType = 20;
                             break;
                         case "Высотки":
-                            coefType = 3;
+                            coefType = 10;
                             break;
                         default:
-                            coefType = 1;
+                            coefType = 10;
                             break;
                     }
 
-                    for (int j = 2; j < context.areas.Select(a => a.id).Count(); j++)
+                    for (int j = 2; j <= context.areas.Select(a => a.id).Count(); j++)
                     {
                         placesAmount = context.areas.Where(a => a.id == j).Select(s => s.placesAmount).First(); //Выбираем переменные из таблицы areas
                         rentPrice = context.areas.Where(a => a.id == j).Select(s => s.rentPrice).First();
                         parkingPlaces = context.areas.Where(a => a.id == j).Select(s => s.parkingPlaces).First();
                         Streetid = context.areas.Where(a => a.id == j).Select(s => s.Streetid).First();
 
-                        var result = ((placesAmount * parkingPlaces) - rentPrice) * (numberOfHouses * coefType);
-                        targetFunction.Add( (int) result);
+                        var result = ((placesAmount * parkingPlaces) - rentPrice) / (numberOfHouses * coefType);
+                        targetFunction.Add((int)result);
                     }
                 }
             }
