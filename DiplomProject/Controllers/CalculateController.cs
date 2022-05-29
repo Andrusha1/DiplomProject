@@ -23,7 +23,7 @@ namespace DiplomProject.Controllers
 
         public void Algorythm()
         {
-            List<int> targetFunction = new List<int>();
+            List <double> targetFunction = new List<double>();
 
             string streetName;
             int numberOfHouses;
@@ -31,16 +31,16 @@ namespace DiplomProject.Controllers
             int placesAmount;
             int rentPrice;
             int parkingPlaces;
-            long Streetid;
+            long Streetid; //id улицы в таблице areas 
+            long streetsId; //id улицы в таблице Streets
             double coefType; //Коэффицент неликвидности
+
 
             int amountOfStreets = context.streets.Select(a => a.id).Count() - 1;
 
-            for (int x = 1; x <= context.streets.Select(a => a.id).Count(); x++)
-            {
-
                 for (int i = 2; i <= context.streets.Select(a => a.id).Count(); i++)
                 {
+                    streetsId = context.streets.Where(a => a.id == i).Select(s => s.id).First();
                     streetName = context.streets.Where(a => a.id == i).Select(s => s.name).First(); //Выбираем переменные из таблицы streets
                     numberOfHouses = context.streets.Where(a => a.id == i).Select(s => s.numbersOfHouses).First();
                     typeOfHouses = context.streets.Where(a => a.id == i).Select(s => s.typeOfHouses).First();
@@ -71,11 +71,15 @@ namespace DiplomProject.Controllers
                         parkingPlaces = context.areas.Where(a => a.id == j).Select(s => s.parkingPlaces).First();
                         Streetid = context.areas.Where(a => a.id == j).Select(s => s.Streetid).First();
 
-                        var result = ((placesAmount * parkingPlaces) - rentPrice) / (numberOfHouses * coefType);
-                        targetFunction.Add((int)result);
+                        if (Streetid == streetsId)
+                        {
+                            var result = ((placesAmount * parkingPlaces) - rentPrice) / (numberOfHouses * coefType);
+                        
+                            targetFunction.Add(Math.Round(result, 2));
+                        }
                     }
                 }
+            Response.Redirect("/Calculate/Index");
             }
         }
     }
-}
