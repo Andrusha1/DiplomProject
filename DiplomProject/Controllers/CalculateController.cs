@@ -11,6 +11,9 @@ namespace DiplomProject.Controllers
     {
         private readonly DatabaseContext context;
 
+        public static List<double> targetFunction = new List<double>();
+
+        
         public CalculateController(DatabaseContext context)
         {
             this.context = context;
@@ -18,12 +21,15 @@ namespace DiplomProject.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            var maxtf = targetFunction.IndexOf(targetFunction.Max()) + 2;
+            ViewBag.TarFuncStreetName = context.streets.Where(a => a.id == maxtf).Select(t => t.name).First();
+            ViewBag.TarFuncMax = targetFunction.Max();
             return View();
         }
 
         public void Algorythm()
         {
-            List <double> targetFunction = new List<double>();
+            
 
             string streetName;
             int numberOfHouses;

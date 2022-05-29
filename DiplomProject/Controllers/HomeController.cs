@@ -20,6 +20,7 @@ public class HomeController : Controller
     {
         var streets = this.context.streets.Include(s => s.areas).Select(s => new StreetsViewModel
         {
+            id = s.id,
             name = s.name,
             numbersOfHouses = s.numbersOfHouses,
             typesOfHouses = s.typeOfHouses,
