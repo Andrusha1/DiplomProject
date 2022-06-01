@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 25.0.1700.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomProject", "DiplomProject\DiplomProject.csproj", "{4DB0D18C-8D68-4878-A24C-87AF956CE2D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomProject", "DiplomProject\DiplomProject.csproj", "{4DB0D18C-8D68-4878-A24C-87AF956CE2D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomProject.Data", "DiplomProject.Data\DiplomProject.Data.csproj", "{B45420BC-D3CF-4FA7-89B0-69116ABFD8EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiplomProject.Data", "DiplomProject.Data\DiplomProject.Data.csproj", "{B45420BC-D3CF-4FA7-89B0-69116ABFD8EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

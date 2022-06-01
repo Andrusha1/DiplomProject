@@ -12,8 +12,8 @@ namespace DiplomProject.Controllers
         private readonly DatabaseContext context;
 
         public static List<double> targetFunction = new List<double>();
+        public static List<long> StreetID = new List<long>();
 
-        
         public CalculateController(DatabaseContext context)
         {
             this.context = context;
@@ -21,16 +21,22 @@ namespace DiplomProject.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var maxtf = targetFunction.IndexOf(targetFunction.Max()) + 2;
-            ViewBag.TarFuncStreetName = context.streets.Where(a => a.id == maxtf).Select(t => t.name).First();
+            for(int i = 0; i < context.streets.Count(); i++)
+            {
+                StreetID.Add(context.streets.Select(s => s.id).First());
+            }
+
+            var targid = targetFunction.IndexOf(targetFunction.Max());
+            var strid = StreetID.ElementAt(targid);
+            ViewBag.TarFuncStreetName = context.streets.Where(a => a.id == strid).Select(s => s.name).First();
             ViewBag.TarFuncMax = targetFunction.Max();
+
             return View();
         }
 
+
         public void Algorythm()
         {
-            
-
             string streetName;
             int numberOfHouses;
             string typeOfHouses;
@@ -44,7 +50,9 @@ namespace DiplomProject.Controllers
 
             int amountOfStreets = context.streets.Select(a => a.id).Count() - 1;
 
-                for (int i = 2; i <= context.streets.Select(a => a.id).Count(); i++)
+            for (long i = context.streets.Select(a => a.id).First(); i <= context.streets.Select(a => a.id).Max(); i++)
+            {
+                if (context.streets.Where(a => a.id == i).Select(s => s.id).FirstOrDefault() != 0)
                 {
                     streetsId = context.streets.Where(a => a.id == i).Select(s => s.id).First();
                     streetName = context.streets.Where(a => a.id == i).Select(s => s.name).First(); //Выбираем переменные из таблицы streets
@@ -70,22 +78,26 @@ namespace DiplomProject.Controllers
                             break;
                     }
 
-                    for (int j = 2; j <= context.areas.Select(a => a.id).Count(); j++)
+                    for (long j = context.areas.Select(a => a.id).First(); j <= context.areas.Select(a => a.id).Max(); j++)
                     {
-                        placesAmount = context.areas.Where(a => a.id == j).Select(s => s.placesAmount).First(); //Выбираем переменные из таблицы areas
-                        rentPrice = context.areas.Where(a => a.id == j).Select(s => s.rentPrice).First();
-                        parkingPlaces = context.areas.Where(a => a.id == j).Select(s => s.parkingPlaces).First();
-                        Streetid = context.areas.Where(a => a.id == j).Select(s => s.Streetid).First();
+                        if(context.areas.Where(a => a.id == j).Select(s => s.placesAmount).FirstOrDefault() != 0) 
+                        { 
+                            placesAmount = context.areas.Where(a => a.id == j).Select(s => s.placesAmount).FirstOrDefault(); //Выбираем переменные из таблицы areas
+                            rentPrice = context.areas.Where(a => a.id == j).Select(s => s.rentPrice).FirstOrDefault();
+                            parkingPlaces = context.areas.Where(a => a.id == j).Select(s => s.parkingPlaces).FirstOrDefault();
+                            Streetid = context.areas.Where(a => a.id == j).Select(s => s.Streetid).FirstOrDefault();
 
-                        if (Streetid == streetsId)
-                        {
-                            var result = ((placesAmount * parkingPlaces) - rentPrice) / (numberOfHouses * coefType);
-                        
-                            targetFunction.Add(Math.Round(result, 2));
+                            if (Streetid == streetsId)
+                            {
+                                var result = ((placesAmount * parkingPlaces) - rentPrice) / (numberOfHouses * coefType);
+
+                                targetFunction.Add(Math.Round(result, 2));
+                            }
                         }
                     }
                 }
-            Response.Redirect("/Calculate/Index");
             }
+            Response.Redirect("/Calculate/Index");
         }
     }
+}

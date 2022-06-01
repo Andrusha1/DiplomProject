@@ -4,6 +4,7 @@ using DiplomProject.Models;
 using DiplomProject.Data;
 using Microsoft.EntityFrameworkCore;
 using DiplomProject.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DiplomProject.Controllers;
 
@@ -28,9 +29,11 @@ public class HomeController : Controller
         });
         return View(streets);
     }
-
+    
     public IActionResult Privacy()
     {
+        var x = DropList(); //DropList from db
+        ViewBag.Street = new SelectList(x); //DropList from db
         return View();
     }
 
@@ -38,6 +41,27 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    public void RemoveStreet(string SelectedStreet)
+    {
+        long id = context.streets.Where(a => a.name == SelectedStreet).Select(s => s.id).First();
+        Street street = context.streets.Find(id);
+        if(street != null) 
+        {
+            context.streets.Remove(street);
+            context.SaveChanges();
+        }
+        Response.Redirect("/Home/Index");
+    }
+    public List<string> DropList() //DropList from db \/
+    {
+        List<string> streets = new List<string>();
+        foreach (var a in context.streets)
+        {
+            streets.Add(a.name);
+        };
+        return streets; //DropList from db /\
     }
 }
 

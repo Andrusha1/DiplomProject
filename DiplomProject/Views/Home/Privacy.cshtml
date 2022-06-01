@@ -1,7 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Удаление улицы (не сделано)";
+    ViewData["Title"] = "Удаление улицы";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
 
+<form>
+<select id="SelectedStreet" name="SelectedStreet" asp-items="ViewBag.Street"></select> @*DropList from db*@
+    <button id="RemoveStreet" name="RemoveStreet" asp-controller="Home" asp-action="RemoveStreet">Сохранить</button>
+</form>

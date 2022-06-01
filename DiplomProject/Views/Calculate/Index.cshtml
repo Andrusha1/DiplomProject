@@ -1,4 +1,49 @@
 ﻿@model List<DiplomProject.Controllers.CalculateController>
 
+
 <h5>Самой выгодной улицей для размещения стоянки является: @ViewBag.TarFuncStreetName,
     с коэффицентом @ViewBag.TarFuncMax</h5>
+
+
+<canvas id="myChart" width="200" height="200" onshow="createChart"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+let str = @ViewBag.TarFuncStreetName;
+</script>
+
+<script>
+const data = {
+    labels: 
+    [
+        `Не`,
+        'по',
+        'ни',
+        'ма',
+        'ю',
+        
+    ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [11, 16, 7, 3, 14],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(75, 192, 192)',
+      'rgb(255, 205, 86)',
+      'rgb(201, 203, 207)',
+      'rgb(54, 162, 235)'
+    ]
+  }]
+};
+  const config = {
+    type: 'polarArea',
+    data: data,
+    options: {}
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
