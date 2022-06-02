@@ -13,6 +13,7 @@ namespace DiplomProject.Controllers
 
         public static List<double> targetFunction = new List<double>();
         public static List<long> StreetID = new List<long>();
+        public static List<string> StreetsNames = new List<string>();
 
         public CalculateController(DatabaseContext context)
         {
@@ -21,16 +22,22 @@ namespace DiplomProject.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            for(int i = 0; i < context.streets.Count(); i++)
+            StreetID.Clear();
+            StreetsNames.Clear();
+            foreach (var x in context.streets)
             {
-                StreetID.Add(context.streets.Select(s => s.id).First());
+                StreetID.Add(x.id);
             }
-
+            foreach (var x in context.streets)
+            {
+                StreetsNames.Add(x.name);
+            }
             var targid = targetFunction.IndexOf(targetFunction.Max());
             var strid = StreetID.ElementAt(targid);
             ViewBag.TarFuncStreetName = context.streets.Where(a => a.id == strid).Select(s => s.name).First();
             ViewBag.TarFuncMax = targetFunction.Max();
-
+            ViewBag.Allstreets = StreetsNames.ToArray();
+            ViewBag.Alltarfunc = targetFunction.ToArray();
             return View();
         }
 
@@ -49,7 +56,6 @@ namespace DiplomProject.Controllers
 
 
             int amountOfStreets = context.streets.Select(a => a.id).Count() - 1;
-
             for (long i = context.streets.Select(a => a.id).First(); i <= context.streets.Select(a => a.id).Max(); i++)
             {
                 if (context.streets.Where(a => a.id == i).Select(s => s.id).FirstOrDefault() != 0)

@@ -8,24 +8,17 @@
 <canvas id="myChart" width="200" height="200" onshow="createChart"></canvas>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-let str = @ViewBag.TarFuncStreetName;
-</script>
 
 <script>
+
+var streetsnames = @Json.Serialize(@ViewBag.Allstreets);
+var alltarfunc = @Json.Serialize(@ViewBag.Alltarfunc);
+
 const data = {
-    labels: 
-    [
-        `Не`,
-        'по',
-        'ни',
-        'ма',
-        'ю',
-        
-    ],
+    labels: streetsnames,
   datasets: [{
     label: 'My First Dataset',
-    data: [11, 16, 7, 3, 14],
+    data: alltarfunc,
     backgroundColor: [
       'rgb(255, 99, 132)',
       'rgb(75, 192, 192)',

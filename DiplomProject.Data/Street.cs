@@ -10,6 +10,7 @@ namespace DiplomProject.Data
 		public int numbersOfHouses { get; set; }
 		public string typeOfHouses { get; set; }
 		public List<Area> areas { get; set; }
+
 	}
 	public class Area
 	{
