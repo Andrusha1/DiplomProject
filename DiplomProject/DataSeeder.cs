@@ -21,14 +21,19 @@ namespace DiplomProject
 			{
 				id = 0,
 				name = "Пример улицы",
-				numbersOfHouses = 1,
+				numbersOfHouses = 20,
 				typeOfHouses = "Сталинки",
 				areas = new List<Area>
 				 {
-					 new Area{id = 0, parkingPlaces = 1, rentPrice = 100000, placesAmount = 10 },
+					 new Area
+					 {
+						 id = 0,
+						 parkingPlaces = 10,
+						 rentPrice = 10000,
+						 placesAmount = 10
+					 },
 				 }
 			}) ;
-
 			context.SaveChanges();
 		}
     }

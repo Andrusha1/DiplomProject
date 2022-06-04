@@ -25,12 +25,12 @@ namespace DiplomProject.Controllers
             StreetID.Clear();
             StreetsNames.Clear();
             foreach (var x in context.streets)
-            {
-                StreetID.Add(x.id);
+            { 
+                    StreetID.Add(x.id);
             }
             foreach (var x in context.streets)
             {
-                StreetsNames.Add(x.name);
+                    StreetsNames.Add(x.name);
             }
             var targid = targetFunction.IndexOf(targetFunction.Max());
             var strid = StreetID.ElementAt(targid);
@@ -38,6 +38,7 @@ namespace DiplomProject.Controllers
             ViewBag.TarFuncMax = targetFunction.Max();
             ViewBag.Allstreets = StreetsNames.ToArray();
             ViewBag.Alltarfunc = targetFunction.ToArray();
+            targetFunction.Clear();
             return View();
         }
 
@@ -95,7 +96,7 @@ namespace DiplomProject.Controllers
 
                             if (Streetid == streetsId)
                             {
-                                var result = ((placesAmount * parkingPlaces) - rentPrice) / (numberOfHouses * coefType);
+                                var result = (((placesAmount * parkingPlaces) - rentPrice) / (numberOfHouses * coefType))/1.825;
 
                                 targetFunction.Add(Math.Round(result, 2));
                             }
