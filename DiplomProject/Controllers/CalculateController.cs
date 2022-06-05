@@ -25,12 +25,12 @@ namespace DiplomProject.Controllers
             StreetID.Clear();
             StreetsNames.Clear();
             foreach (var x in context.streets)
-            { 
-                    StreetID.Add(x.id);
+            {
+                StreetID.Add(x.id);
             }
             foreach (var x in context.streets)
             {
-                    StreetsNames.Add(x.name);
+                StreetsNames.Add(x.name);
             }
             var targid = targetFunction.IndexOf(targetFunction.Max());
             var strid = StreetID.ElementAt(targid);
@@ -87,24 +87,46 @@ namespace DiplomProject.Controllers
 
                     for (long j = context.areas.Select(a => a.id).First(); j <= context.areas.Select(a => a.id).Max(); j++)
                     {
-                        if(context.areas.Where(a => a.id == j).Select(s => s.placesAmount).FirstOrDefault() != 0) 
-                        { 
+                        if (context.areas.Where(a => a.id == j).Select(s => s.placesAmount).FirstOrDefault() != 0)
+                        {
                             placesAmount = context.areas.Where(a => a.id == j).Select(s => s.placesAmount).FirstOrDefault(); //Выбираем переменные из таблицы areas
                             rentPrice = context.areas.Where(a => a.id == j).Select(s => s.rentPrice).FirstOrDefault();
                             parkingPlaces = context.areas.Where(a => a.id == j).Select(s => s.parkingPlaces).FirstOrDefault();
                             Streetid = context.areas.Where(a => a.id == j).Select(s => s.Streetid).FirstOrDefault();
 
+                            //List<double> allresult = new List<double>();
+
                             if (Streetid == streetsId)
                             {
-                                var result = (((placesAmount * parkingPlaces) - rentPrice) / (numberOfHouses * coefType))/1.825;
+                                /*
+                                    for(i = placesAmount - 500; i <= placesAmount + 500; i = i / 100)
+                                    {
+                                        for (j = parkingPlaces; j >= 20; j--)
+                                        {
+                                            var result = ((((placesAmount * parkingPlaces) - rentPrice) / (numberOfHouses * coefType)) / 1.825);
+                                            if (allresult.Count == 0)
+                                            {
+                                                targetFunction.Add(Math.Round(result, 2));
+                                            }
+                                            else if (allresult.Last() > result)
+                                            {
+                                                targetFunction.Add(Math.Round(result, 2));
+                                            }
+                                        }
+
+                                */
+
+                                //Обычная формула
+
+                                var result = (((placesAmount * parkingPlaces) - rentPrice) / (numberOfHouses * coefType)) / 1.825;
 
                                 targetFunction.Add(Math.Round(result, 2));
                             }
                         }
                     }
                 }
+                Response.Redirect("/Calculate/Index");
             }
-            Response.Redirect("/Calculate/Index");
         }
     }
 }
