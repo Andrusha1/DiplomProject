@@ -14,6 +14,8 @@ namespace DiplomProject.Controllers
         public static List<double> targetFunction = new List<double>();
         public static List<long> StreetID = new List<long>();
         public static List<string> StreetsNames = new List<string>();
+        public static List<int> OptimalPrice = new List<int>();
+        public static List<double> placeRate = new List<double>();
 
         public CalculateController(DatabaseContext context)
         {
@@ -34,11 +36,15 @@ namespace DiplomProject.Controllers
             }
             var targid = targetFunction.IndexOf(targetFunction.Max());
             var strid = StreetID.ElementAt(targid);
+            var optPrice = OptimalPrice.ElementAt(targid);
             ViewBag.TarFuncStreetName = context.streets.Where(a => a.id == strid).Select(s => s.name).First();
-            ViewBag.TarFuncMax = targetFunction.Max();
-            ViewBag.Allstreets = StreetsNames.ToArray();
-            ViewBag.Alltarfunc = targetFunction.ToArray();
+            ViewBag.TarFuncMax = targetFunction.Max(); //Максимальная целевая функция
+            ViewBag.Allstreets = StreetsNames.ToArray(); //Для графиков
+            ViewBag.Alltarfunc = targetFunction.ToArray(); //Для графиков
+            ViewBag.optPrice = OptimalPrice.ElementAt(targid); //Оптимальная стоимость
+            ViewBag.placeRate = placeRate.ElementAt(targid); //Рейтинг парковочных мест
             targetFunction.Clear();
+            OptimalPrice.Clear();
             return View();
         }
 
@@ -94,39 +100,62 @@ namespace DiplomProject.Controllers
                             parkingPlaces = context.areas.Where(a => a.id == j).Select(s => s.parkingPlaces).FirstOrDefault();
                             Streetid = context.areas.Where(a => a.id == j).Select(s => s.Streetid).FirstOrDefault();
 
-                            //List<double> allresult = new List<double>();
+                            double result;
+                            double payrate = numberOfHouses / coefType;
+                            double newPlaceAmount;
 
                             if (Streetid == streetsId)
                             {
-                                /*
-                                    for(i = placesAmount - 500; i <= placesAmount + 500; i = i / 100)
-                                    {
-                                        for (j = parkingPlaces; j >= 20; j--)
-                                        {
-                                            var result = ((((placesAmount * parkingPlaces) - rentPrice) / (numberOfHouses * coefType)) / 1.825);
-                                            if (allresult.Count == 0)
-                                            {
-                                                targetFunction.Add(Math.Round(result, 2));
-                                            }
-                                            else if (allresult.Last() > result)
-                                            {
-                                                targetFunction.Add(Math.Round(result, 2));
-                                            }
-                                        }
+                                if (coefType == 10 && placesAmount < 5000 && (placesAmount * parkingPlaces - rentPrice) > 50000)
+                                {
+                                    newPlaceAmount = placesAmount + (payrate * 2);
+                                    result = ((newPlaceAmount * parkingPlaces - rentPrice) / payrate / 100);
+                                    targetFunction.Add(Math.Round(result, 2));
+                                    int op = (int)Math.Round(newPlaceAmount, 0);
+                                    OptimalPrice.Add(op);
+                                    placeRate.Add(payrate);
+                                }
+                                else if (coefType == 20 && placesAmount < 3000 && (placesAmount * parkingPlaces - rentPrice) > 30000)
+                                {
+                                    newPlaceAmount = placesAmount + (payrate * 3);
+                                    result = ((newPlaceAmount * parkingPlaces - rentPrice) / payrate / 100);
+                                    targetFunction.Add(Math.Round(result, 2));
+                                    int op = (int)Math.Round(newPlaceAmount, 0);
+                                    OptimalPrice.Add(op);
+                                    placeRate.Add(payrate);
+                                }
+                                else if (coefType == 30 && placesAmount < 2000 && (placesAmount * parkingPlaces - rentPrice) > 20000)
+                                {
 
-                                */
-
-                                //Обычная формула
-
-                                var result = (((placesAmount * parkingPlaces) - rentPrice) / (numberOfHouses * coefType)) / 1.825;
-
-                                targetFunction.Add(Math.Round(result, 2));
+                                    newPlaceAmount = placesAmount + (payrate * 4);
+                                    result = ((newPlaceAmount * parkingPlaces - rentPrice) / payrate / 100);
+                                    targetFunction.Add(Math.Round(result, 2));
+                                    int op = (int)Math.Round(newPlaceAmount, 0);
+                                    OptimalPrice.Add(op);
+                                    placeRate.Add(payrate);
+                                }
+                                else if (coefType == 50 && placesAmount < 1000 && (placesAmount * parkingPlaces - rentPrice) > 10000)
+                                {
+                                    newPlaceAmount = placesAmount + (payrate * 5);
+                                    result = ((newPlaceAmount * parkingPlaces - rentPrice) / payrate / 100);
+                                    targetFunction.Add(Math.Round(result, 2));
+                                    int op = (int)Math.Round(newPlaceAmount, 0);
+                                    OptimalPrice.Add(op);
+                                    placeRate.Add(payrate);
+                                }
+                                else
+                                {
+                                    result = ((placesAmount * parkingPlaces - rentPrice) / ((numberOfHouses * coefType)));
+                                    targetFunction.Add(Math.Round(result, 2));
+                                    OptimalPrice.Add(placesAmount);
+                                    placeRate.Add(payrate);
+                                }
                             }
                         }
                     }
                 }
-                Response.Redirect("/Calculate/Index");
             }
+            Response.Redirect("/Calculate/Index");
         }
     }
 }

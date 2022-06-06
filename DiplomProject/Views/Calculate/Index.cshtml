@@ -1,8 +1,16 @@
 ﻿@model List<DiplomProject.Controllers.CalculateController>
 
+@{
+    ViewData["Title"] = "Результаты поиска";
+}
 
-<h5>Самой выгодной улицей для размещения стоянки является: @ViewBag.TarFuncStreetName,
-    с коэффицентом @ViewBag.TarFuncMax</h5>
+<h6>Самой выгодной улицей для размещения стоянки является: @ViewBag.TarFuncStreetName.</h6>
+<p />
+<h6>Коэффицент окупаемости в зависимости от вложений: @ViewBag.TarFuncMax.</h6>
+<p />
+<h6>Оптимальная стоимость одного места составляет @ViewBag.optPrice</h6>
+<p />
+<h6>Оценка востребованности одного места: @ViewBag.placeRate</h6>
 
 
 <canvas id="myChart" style="position: relative; height:30vh; width:30vw" onshow="createChart"></canvas>
