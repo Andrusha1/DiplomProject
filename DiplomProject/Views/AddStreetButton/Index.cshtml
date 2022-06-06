@@ -41,12 +41,12 @@
     <ng-form id="AddingStreet" action="AddStreet" style="display:block" method="post">
         <label>Название улицы</label>
         <br />
-        <input type="text" name="name" />
+        <input type="text" name="name" required/>
         <br />
 
         <label>Количество домов</label>
         <br />
-        <input type="number" name="numberOfHouses" min="20" max="400"  />
+        <input type="number" name="numberOfHouses" min="20" max="400"  required/>
         <p></p>
 
         <label>Тип домов</label>
@@ -66,15 +66,15 @@
 
     <label>Минимальная стоимость аренды одного парковочного места</label>
     <br />
-    <input type="number" name="placesAmount" min="200" max="5000" />
+    <input type="number" name="placesAmount" min="200" max="5000" required/>
     <br />
     <label>Стоимость аренды стоянки</label>
     <br />
-    <input type="number" name="rentPrice" min="10000" max="150000"/>
+    <input type="number" name="rentPrice" min="10000" max="150000" required/>
     <br />
     <label>Количество парковочных мест</label>
     <br />
-    <input type="number" name="parkingPlaces" min="20" max="150" />
+    <input type="number" name="parkingPlaces" min="20" max="150" required/>
     <p></p>
 
 
