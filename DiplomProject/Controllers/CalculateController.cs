@@ -96,6 +96,10 @@ namespace DiplomProject.Controllers
 
                             if (Streetid == streetsId)
                             {
+                                if(streetName == "Пример улицы")
+                                {
+                                    break;
+                                }
                                 if (StreetsNames.Contains(streetName))
                                 {
                                     string areaName = streetName + ", стоянка 2";
