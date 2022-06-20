@@ -108,53 +108,53 @@ namespace DiplomProject.Controllers
                                     targetFunction.Add(Math.Round(result, 2));
                                     int op = (int)Math.Round(newPlaceAmount, 0);
                                     OptimalPrice.Add(op);
-                                    placeRate.Add(payrate / 2);
+                                    placeRate.Add(Math.Round((payrate * 100) * 2));
                                     StreetsNames.Add(areaName);
                                     StreetID.Add(streetsId);
                                 }
                                 else
                                 {
-                                    if (coefType == 5 && placesAmount < 5000 && (placesAmount * parkingPlaces - rentPrice) > 25000 && payrate > 45)
+                                    if (coefType == 5 && placesAmount < 4500 && (placesAmount * parkingPlaces - rentPrice) > 25000 && payrate > 45)
                                     {
                                         newPlaceAmount = placesAmount + (placesAmount / 10);
                                         result = ((newPlaceAmount * parkingPlaces - rentPrice) * (payrate / 100) * (coefType/100) * 2.5);
                                         targetFunction.Add(Math.Round(result, 2));
                                         int op = (int)Math.Round(newPlaceAmount, 0);
                                         OptimalPrice.Add(op);
-                                        placeRate.Add(payrate / 2);
+                                        placeRate.Add(Math.Round((payrate * 100) * 2));
                                         StreetID.Add(streetsId);
                                         StreetsNames.Add(streetName);
                                     }
-                                    else if (coefType == 3 && placesAmount < 3000 && (placesAmount * parkingPlaces - rentPrice) > 30000 && payrate > 45)
+                                    else if (coefType == 3 && placesAmount < 2700 && (placesAmount * parkingPlaces - rentPrice) > 30000 && payrate > 45)
                                     {
                                         newPlaceAmount = placesAmount + (placesAmount / 10);
                                         result = ((newPlaceAmount * parkingPlaces - rentPrice) * (payrate / 100) * (coefType / 100) * 2.5);
                                         targetFunction.Add(Math.Round(result, 2));
                                         int op = (int)Math.Round(newPlaceAmount, 0);
                                         OptimalPrice.Add(op);
-                                        placeRate.Add(payrate / 2);
+                                        placeRate.Add(Math.Round((payrate * 100) * 2));
                                         StreetID.Add(streetsId);
                                         StreetsNames.Add(streetName);
                                     }
-                                    else if (coefType == 2 && placesAmount < 2000 && (placesAmount * parkingPlaces - rentPrice) > 20000 && payrate > 45)
+                                    else if (coefType == 2 && placesAmount < 1800 && (placesAmount * parkingPlaces - rentPrice) > 20000 && payrate > 45)
                                     {
                                         newPlaceAmount = placesAmount + (placesAmount / 10);
                                         result = ((newPlaceAmount * parkingPlaces - rentPrice) * (payrate / 100) * (coefType / 100) * 2.5);
                                         targetFunction.Add(Math.Round(result, 2));
                                         int op = (int)Math.Round(newPlaceAmount, 0);
                                         OptimalPrice.Add(op);
-                                        placeRate.Add(payrate / 2);
+                                        placeRate.Add(Math.Round((payrate * 100) * 2));
                                         StreetID.Add(streetsId);
                                         StreetsNames.Add(streetName);
                                     }
-                                    else if (coefType == 1 && placesAmount < 1500 && (placesAmount * parkingPlaces - rentPrice) > 10000 && payrate > 45)
+                                    else if (coefType == 1 && placesAmount < 1300 && (placesAmount * parkingPlaces - rentPrice) > 10000 && payrate > 45)
                                     {
                                         newPlaceAmount = placesAmount + (placesAmount / 10);
                                         result = ((newPlaceAmount * parkingPlaces - rentPrice) * (payrate / 100) * (coefType / 100) * 2.5);
                                         targetFunction.Add(Math.Round(result, 2));
                                         int op = (int)Math.Round(newPlaceAmount, 0);
                                         OptimalPrice.Add(op);
-                                        placeRate.Add(payrate / 2);
+                                        placeRate.Add(Math.Round((payrate * 100) * 2));
                                         StreetID.Add(streetsId);
                                         StreetsNames.Add(streetName);
                                     }
@@ -163,7 +163,7 @@ namespace DiplomProject.Controllers
                                         result = ((placesAmount * parkingPlaces - rentPrice) * (payrate / 100) * (coefType / 100) * 2.5);
                                         targetFunction.Add(Math.Round(result, 2));
                                         OptimalPrice.Add(placesAmount);
-                                        placeRate.Add(payrate / 2);
+                                        placeRate.Add(Math.Round((payrate * 100) * 2));
                                         StreetID.Add(streetsId);
                                         StreetsNames.Add(streetName);
                                     }
